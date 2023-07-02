@@ -1,0 +1,23 @@
+body {
+    background: white;
+    height: 100%;
+    margin: 0;
+}
+
+.container-fluid {
+    min-height: 100%;
+    position: relative;
+    padding: 100px;
+    padding-top: 50px;
+    align: center;
+}
+
+.book-img {
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.book-img:hover {
+    transform: scale(1.1);
+}
+

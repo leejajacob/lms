@@ -1,0 +1,30 @@
+{% extends 'home.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>My Profile</h1>
+
+    <h2>Personal Information</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ user_profile_form.as_p }}
+        <button type="submit">Update</button>
+    </form>
+
+    <h2>Address</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ address_form.as_p }}
+        <button type="submit">Update</button>
+    </form>
+
+
+</body>
+</html>
+{% endblock content %}
