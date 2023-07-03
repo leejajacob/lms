@@ -1,6 +1,7 @@
 from datetime import date, timedelta
 
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
@@ -10,7 +11,7 @@ from .models import Book, Order, Cart, CartItems
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'index.html')
 
 
 class BookList(ListView):
@@ -18,6 +19,11 @@ class BookList(ListView):
     context_object_name = 'book'
     template_name = 'list.html'
 
+def about(request):
+    return render(request,'about.html')
+
+def contact(request):
+    return render(request,'contact.html')
 
 class BookDetail(DetailView):
     model = Book
@@ -31,6 +37,18 @@ def PaymentComplete(request, pk):
         product=product
     )
     return JsonResponse('Payment Completed', safe=False)
+
+
+class SearchResultView(ListView):
+    model = Book
+    template_name = 'search_results.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        return Book.objects.filter(
+            Q(title=query) | Q(author=query)
+        )
+
 
 
 @login_required
@@ -82,18 +100,23 @@ def remove_from_cart(request, book_id):
     return redirect('mycart')
 
 
+
+def out_of_stock(request):
+    return render(request, 'out_of_stock.html')
+
 @login_required
 def order_book(request, book_id):
-    if request.method == 'POST':
-        book = Book.objects.get(id=book_id)
-        if book.quantity > 0:
-            user = request.user.id
-            product = book.title
-            order_date = date.today()
-            return_date = order_date + timedelta(days=15)
-            fine = 0
-            order = Order(user=user, product=product, order_date=order_date, return_date=return_date,fine=fine)
-            order.save()
-            book.quantity -= 1
-            book.save()
-    return render(request, 'order.html')
+    book = get_object_or_404(Book, id=book_id)
+    if book.quantity > 0:
+        user = request.user
+        order_date = date.today()
+        return_date = order_date + timedelta(days=15)
+        fine = 0
+        order = Order(user=user, product=book, order_date=order_date, return_date=return_date, fine=fine)
+        order.save()
+        book.quantity -= 1
+        book.save()
+        return render(request,'order.html')
+    else:
+        return redirect('out_of_stock')
+

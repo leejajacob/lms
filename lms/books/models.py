@@ -18,6 +18,9 @@ class Book(models.Model):
     quantity=models.PositiveIntegerField(default=0)
     genres = models.ManyToManyField(Genre)
 
+    def __str__(self):
+        return self.title
+
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -26,9 +29,8 @@ class Order(models.Model):
     return_date = models.DateField(null=True, blank=True)
     fine=models.DecimalField(max_digits=10,decimal_places=2,default=0)
 
-
     def __str__(self):
-        return self.product.title
+        return f"Order #{self.id}"
 
     # def calculate_fine(self):
     #     if self.return_date and self.return_date > datetime.date.today():

@@ -1,4 +1,4 @@
-{% extends 'home.html' %}
+{% extends 'index.html' %}
 {% block content %}
 {% load static %}
 
@@ -47,7 +47,7 @@
             {% endfor %}
             </p>
 
-            {% if object.book_available is True %}
+            {% if object.quantity > 0 %}
             <a href="" class="btn btn-outline-primary" role="button" onclick="alert('Item added to cart')">Add to cart</a>
             
             <a href="{% url 'order' book_id=book.id %}" class="btn btn-outline-success" role="button">Buy now</a>

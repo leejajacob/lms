@@ -1,4 +1,4 @@
-{% extends 'home.html' %}
+{% extends 'index.html' %}
 {% block content %}
 {% load static %}
 
@@ -25,7 +25,7 @@
                     
                     <a href="{% url 'details' books.id %}">View</a>
 
-                {% if books.book_available is True %}
+                {% if books.quantity > 0  %}
                 <li class="text-primary">Available</li>
                 {% else %}
                 <li class="text-danger">Out of Stock..!</li>
