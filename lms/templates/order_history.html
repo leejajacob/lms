@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order History</title>
+</head>
+<body>
+    <h1>Order History</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Book</th>
+                <th>Order Date</th>
+                <th>Return Date</th>
+                <th>Fine</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.product.title }}</td>
+                <td>{{ order.order_date }}</td>
+                <td>{{ order.return_date }}</td>
+                <td>{{ order.fine }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

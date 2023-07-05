@@ -120,3 +120,22 @@ def order_book(request, book_id):
     else:
         return redirect('out_of_stock')
 
+
+@login_required
+def return_book(request, order_id):
+    order = Order.objects.get(id=order_id)
+    today = date.today()
+    if today > order.return_date:
+        days_late = (today - order.return_date).days
+        fine = days_late * 2
+        order.fine = fine
+        order.save()
+
+    order.delete()
+    return render(request, 'order_history.html')
+
+@login_required
+def order_history(request):
+    user = request.user
+    orders = Order.objects.filter(user=user)
+    return render(request, 'order_history.html', {'orders': orders})
