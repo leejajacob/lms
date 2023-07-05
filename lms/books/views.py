@@ -124,6 +124,7 @@ def order_book(request, book_id):
 @login_required
 def return_book(request, order_id):
     order = Order.objects.get(id=order_id)
+    book=order.product
     today = date.today()
     if today > order.return_date:
         days_late = (today - order.return_date).days
@@ -131,6 +132,8 @@ def return_book(request, order_id):
         order.fine = fine
         order.save()
 
+    book.quantity += 1
+    book.save()
     order.delete()
     return render(request, 'order_history.html')
 
