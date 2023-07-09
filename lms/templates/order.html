@@ -1,7 +1,15 @@
 {% extends 'index.html' %}
 
 {% block content %}
-  <h1>Order Success!</h1>
-  <p>Your book order has been confirmed.</p>
-  <p>Thank you for your order!</p>
+  <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+    <div>
+      <h1 style="font-size: 36px; color: #333;">Order Success!</h1>
+      <p style="font-size: 18px; color: #555;">Your book order has been confirmed.</p>
+      <p style="font-size: 18px; color: #555;">Thank you for your order!</p>
+    </div>
+    <button style="padding: 10px 20px; font-size: 16px; background-color: #337ab7; color: #fff; border: none; border-radius: 4px; margin-top: 20px; cursor: pointer;">
+      <a href="{% url 'home' %}" style="text-decoration: none; color: #fff;">Back To Home</a>
+    </button>
+  </div>
+
 {% endblock %}

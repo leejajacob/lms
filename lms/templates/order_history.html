@@ -2,6 +2,60 @@
 <html>
 <head>
     <title>Order History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #666;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e9e9e9;
+        }
+
+        .order-id {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .book-title {
+            color: #555;
+        }
+
+        .fine {
+            color: #ff4d4d;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <h1>Order History</h1>
@@ -13,16 +67,24 @@
                 <th>Order Date</th>
                 <th>Return Date</th>
                 <th>Fine</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
             {% for order in orders %}
             <tr>
-                <td>{{ order.id }}</td>
-                <td>{{ order.product.title }}</td>
+                <td class="order-id">{{ order.id }}</td>
+                <td class="book-title">{{ order.product.title }}</td>
                 <td>{{ order.order_date }}</td>
                 <td>{{ order.return_date }}</td>
-                <td>{{ order.fine }}</td>
+                <td class="fine">{{ order.fine }}</td>
+                <td>
+                    {% if order.returned %}
+                        Returned
+                    {% else %}
+                        Pending
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>

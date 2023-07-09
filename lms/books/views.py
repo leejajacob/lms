@@ -132,9 +132,11 @@ def return_book(request, order_id):
         order.fine = fine
         order.save()
 
+    order.returned = True
+    order.save()
+
     book.quantity += 1
     book.save()
-    order.delete()
     return render(request, 'order_history.html')
 
 @login_required
@@ -142,3 +144,6 @@ def order_history(request):
     user = request.user
     orders = Order.objects.filter(user=user)
     return render(request, 'order_history.html', {'orders': orders})
+
+def Profile(request):
+    return render(request,'myprofile.html')

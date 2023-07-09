@@ -1,7 +1,14 @@
 {% extends 'index.html' %}
 
 {% block content %}
-  <h1>Out of Stock</h1>
-  <p>The requested book is currently out of stock.</p>
-  <p>We apologize for any inconvenience caused.</p>
+  <div style="display: flex; justify-content: center; align-items: center; text-align: center; flex-direction: column;">
+    <div>
+      <h1>Out of Stock</h1>
+      <p>The requested book is currently out of stock.</p>
+      <p>We apologize for any inconvenience caused.</p>
+    </div>
+    <button style="padding: 10px 20px; font-size: 16px; background-color: #337ab7; color: #fff; border: none; border-radius: 4px; margin-top: 20px; cursor: pointer;">
+      <a href="{% url 'home' %}" style="text-decoration: none; color: #fff;">Back To Home</a>
+    </button>
+  </div>
 {% endblock %}
