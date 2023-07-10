@@ -9,21 +9,15 @@
 </head>
 <body>
     <h1>My Profile</h1>
-
+<div class="container">
     <h2>Personal Information</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ user_profile_form.as_p }}
-        <button type="submit">Update</button>
-    </form>
+    <p>Username: {{ user }}</p>
+    <p>First name: {{ user.first_name }}</p>
+    <p>Last name: {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <a href="{%url 'edit_profile' %}" class="btn btn-outline-success" role="button">Update</a>
 
-    <h2>Address</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ address_form.as_p }}
-        <button type="submit">Update</button>
-    </form>
-
+</div>
 
 </body>
 </html>

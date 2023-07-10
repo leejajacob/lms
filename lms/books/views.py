@@ -37,13 +37,11 @@ class BookDetail(DetailView):
     context_object_name = 'book'
     template_name = 'bookdetails.html'
 
+class FinePayment(DetailView):
+    model = Book
+    template_name = 'checkout.html'
 
-def PaymentComplete(request, pk):
-    product = Book.objects.get(id=pk)
-    Order.objects.create(
-        product=product
-    )
-    return JsonResponse('Payment Completed', safe=False)
+
 
 
 class SearchResultView(ListView):
@@ -99,11 +97,7 @@ def remove_from_cart(request, book_id):
         cart_item_qs = CartItems.objects.filter(book=book_id)
         if cart_item_qs.exists():
             cart_item = cart_item_qs.first()
-            if cart_item.quantity > 1:
-                cart_item.quantity -= 1
-                cart_item.save()
-            else:
-                cart_item.delete()
+            cart_item.delete()
     return redirect('mycart')
 
 
@@ -138,13 +132,28 @@ def return_book(request, order_id):
         fine = days_late * 2
         order.fine = fine
         order.save()
-
+        if order.fine > 0:
+            return render(request, 'checkout.html', {'order': order})
+        else:
+            order.returned = True
+            order.save()
     order.returned = True
     order.save()
-
     book.quantity += 1
     book.save()
-    return render(request, 'order_history.html')
+    user = request.user
+    orders = Order.objects.filter(user=user)
+    return render(request, 'order_history.html', {'orders': orders})
+
+def process_payment(request, order_id):
+    if request.method == 'POST':
+        order = Order.objects.get(id=order_id)
+        payment_amount = float(request.POST['payment_amount'])
+        if payment_amount >= order.fine:
+            order.returned = True
+            order.save()
+    return redirect('order_history')
+
 
 @login_required
 def order_history(request):
@@ -154,4 +163,3 @@ def order_history(request):
 
 def Profile(request):
     return render(request,'myprofile.html')
-

@@ -7,9 +7,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Cart</title>
-    <link rel="stylesheet" href="{% static 'cart.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<style>
+    body{
+    align-items: center;
+
+}
+
+.card img{
+    padding-top: 15px;
+    padding-left: 5px;
+    margin-left: 5px;
+}
+</style>
 </head>
 <body>
 <div class="container-fluid">
@@ -28,11 +39,9 @@
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title">{{ cart_item.book.title }}</h5>
-                    <p>Price: {{ cart_item.book.price }} per book</p>
-                    <p>Quantity: {{ cart_item.quantity }}</p>
-                    <p>Total: {{ cart_item.total_price }}</p>
+                    <p>Description: {{ cart_item.book.description }} </p>
 
-                    <a class="btn btn-outline-primary" href="" onclick="alert('Payment Successfull')">Buy</a></p>
+                    <a class="btn btn-outline-primary" href="{% url 'order' book_id=cart_item.book.id %}">Buy</a></p>
                     <a class="btn btn-outline-danger" href="{% url 'remove_from_cart' book_id=cart_item.book.id %}" onclick="alert('Item removed from cart')">Remove from cart</a>
 
                 </div>

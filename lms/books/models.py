@@ -14,6 +14,8 @@ class Contact(models.Model):
         return self.name
 class Genre(models.Model):
     name = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name
 
 class Book(models.Model):
     title=models.CharField(max_length=150)
@@ -39,13 +41,6 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order #{self.id}"
-
-    # def calculate_fine(self):
-    #     if self.return_date and self.return_date > datetime.date.today():
-    #         days_diff = (self.return_date - datetime.date.today()).days
-    #         fine = days_diff * 2
-    #         return fine
-    #     return 0
 
 
 class Cart(models.Model):

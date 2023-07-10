@@ -1,3 +1,5 @@
+{% extends 'index.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,8 +7,6 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
             background-color: #f7f7f7;
         }
 
@@ -68,6 +68,8 @@
                 <th>Return Date</th>
                 <th>Fine</th>
                 <th>Status</th>
+                <th>Return Book</th>
+
             </tr>
         </thead>
         <tbody>
@@ -77,12 +79,17 @@
                 <td class="book-title">{{ order.product.title }}</td>
                 <td>{{ order.order_date }}</td>
                 <td>{{ order.return_date }}</td>
-                <td class="fine">{{ order.fine }}</td>
+                <td class="fine">RS. {{ order.fine }}</td>
                 <td>
                     {% if order.returned %}
                         Returned
                     {% else %}
                         Pending
+                    {% endif %}
+                </td>
+                <td>
+                    {% if not order.returned %}
+                    <a class="btn btn-outline-primary" role="button"  href="{% url 'return_book' order_id=order.id %}"  >Return</a>
                     {% endif %}
                 </td>
             </tr>
@@ -91,3 +98,4 @@
     </table>
 </body>
 </html>
+{% endblock %}

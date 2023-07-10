@@ -7,17 +7,30 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
-  <link rel="stylesheet" href="{% static 'details.css' %}">
+  <title>Book Details</title>
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <style>
 
+.book-img {
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.book-img:hover {
+    transform: scale(1.1);
+}
+
+
+  </style>
 </head>
 
 <body>
+  <h2 style="text-align: center; padding-top: 10px;">Book Details</h2>
   <div class="container-fluid">
-    <div class="row no-gutters">
-      <div class="col-md-3 mb-3"><img src="{{ object.image_url}}" class="card-img-top book-img" alt=".."
+    <div class="row no-gutters" style="padding-top: 40px;">
+      <div class="col-md-3 mb-3" style="padding-left: 80px;"><img src="{{ object.image_url}}" class="card-img-top book-img" alt=".."
           style="width: 200px;"></div>
 
       <div class="col-md-8">
@@ -27,28 +40,28 @@
           <p class="card-text">{{object.description}}</p>
           <p>Genres:
             {% for genre in book.genres.all %}
-            {% if genre.name == "Fiction" %}
+            {% if genre.name == "FICTION" %}
             <span class="badge badge-pill badge-primary" style="font-weight: bold; text-transform: uppercase;">{{ genre.name }}</span>
-            {% elif genre.name == "Thriller" %}
+            {% elif genre.name == "THRILLER" %}
             <span class="badge badge-pill badge-warning" style="font-weight: bold; text-transform: uppercase; color: white;">{{ genre.name }}</span>
-            {% elif genre.name == "Mystery" %}
+            {% elif genre.name == "MYSTERY" %}
             <span class="badge badge-pill badge-secondary" style="font-weight: bold; text-transform: uppercase; color: white;">{{ genre.name }}</span>
-            {% elif genre.name == "Drama" %}
+            {% elif genre.name == "DRAMA" %}
             <span class="badge badge-pill badge-success" style="font-weight: bold; text-transform: uppercase; color: white;">{{ genre.name }}</span>
-            {% elif genre.name == "Action" %}
+            {% elif genre.name == "ACTION" %}
             <span class="badge badge-pill badge-danger" style="font-weight: bold; text-transform: uppercase; color: white;">{{ genre.name }}</span>
-            {% elif genre.name == "Romance" %}
+            {% elif genre.name == "ROMANCE" %}
             <span class="badge badge-pill badge-info" style="font-weight: bold; text-transform: uppercase; color: white;">{{ genre.name }}</span>
             {% else %}
             <span class="badge badge-pill badge-dark" style="font-weight: bold; text-transform: uppercase; color: white;">{{ genre.name }}</span>
-           
+
             {% endif %}
                 <!-- {{ genre.name }}  -->
             {% endfor %}
             </p>
 
             {% if object.quantity > 0 %}
-            <a href="" class="btn btn-outline-primary" role="button" onclick="alert('Item added to cart')">Add to cart</a>
+            <a href="{% url 'add_to_cart' book_id=book.id %}" class="btn btn-outline-primary" role="button" onclick="alert('Item added to cart')">Add to cart</a>
             
             <a href="{% url 'order' book_id=book.id %}" class="btn btn-outline-success" role="button">Buy now</a>
             {% else %}

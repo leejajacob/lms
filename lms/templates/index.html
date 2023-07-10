@@ -44,7 +44,7 @@
             margin-right: 10px;
         }
 
-        .navbar .cart-symbol {
+        .navbar .heart-symbol {
             font-size: 20px;
             color: red;
             font-size:36px;
@@ -110,7 +110,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
     <div class="container">
-        <a class="navbar-brand" href="#"> <span class="spans" style="color:red;">LMS</span></a>
+        <a class="navbar-brand" href="{% url 'home' %}"> <span class="spans" style="color:red;">LMS</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -138,8 +138,8 @@
                         <a href="{% url 'profile' %}">My Profile</a>
                         <a href="{% url 'mycart' %}">My Cart</a>
                         <a href="{% url 'order_history' %}">My Orders</a>
-<!--                        <a href="return_book.html">Return book</a>-->
-                     <a href="{% url 'logout' %}">Logout</a>
+                        <a href="{% url 'change_password' %}">Change Password</a>
+                        <a href="{% url 'logout' %}">Logout</a>
                     {% else %}
                     <a href="{% url 'login' %}">Login</a>
                     <a href="{% url 'signup' %}">Sign Up</a>
@@ -157,7 +157,7 @@
             <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search Your Books" aria-label="Search">
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <a class="btn btn-outline-light" href="{% url 'mycart' %}"><i class="cart-symbol fa fa-shopping-cart" style="font-size:20px;padding:10px;">Cart</i></a>
+        <a class="btn btn-outline-light" href="{% url 'mycart' %}"><i class="heart-symbol fa fa-heart-o" style="font-size:20px;padding:10px;">Wishlist</i></a>
         </div>
 </nav>
 
