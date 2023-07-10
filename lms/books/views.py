@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 
-from .models import Book, Order, Cart, CartItems
+from .models import Book, Order, Cart, CartItems, Contact
 
 
 # Create your views here.
@@ -23,6 +23,13 @@ def about(request):
     return render(request,'about.html')
 
 def contact(request):
+    if request.method =="POST":
+        name=request.POST.get('name')
+        email=request.POST.get('email')
+        message=request.POST.get('message')
+        contacts=Contact(name=name,email=email,message=message)
+        contacts.save()
+
     return render(request,'contact.html')
 
 class BookDetail(DetailView):
@@ -147,3 +154,4 @@ def order_history(request):
 
 def Profile(request):
     return render(request,'myprofile.html')
+
