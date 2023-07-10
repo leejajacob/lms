@@ -16,19 +16,18 @@
 </head>
 <body>
 <div class="container">
-    {% if object.book_available is True %}
     <div class="row">
         <div class="col-lg">
             <div class="text-center" style=width:22rem;">
-                <img src="{{ object.image_url }}" class="card-img">
+                <img src="{{ order.product.image_url }}" class="card-img">
             </div>
         </div>
         <div class=" col-lg">
             <br>
             <div class="card card-body">
-                <h3>Payment for {{ object.title }}</h3>
+                <h3>Payment for {{ order.product.title }}</h3>
                 <br>
-                <h4>Total: Rs/-{{ object.price|floatformat:2}}</h4>
+                <h4>Total: Rs/-{{ order.fine|floatformat:2}}</h4>
                 <hr>
                 <div id="paypal-button-container"></div>
             </div>
@@ -66,7 +65,7 @@
 		var productId = '{{object.id}}'
 
 		function completeOrder() {
-			var url = "{% url 'complete' %}"
+			var url = "{% url 'process_payment' order_id=order.product.id%}"
 
 			fetch(url, {
 				method: 'POST',
@@ -106,7 +105,6 @@
 
 		}).render('#paypal-button-container');
 	</script>
-    {% endif %}
 </div>
 
 </body>
