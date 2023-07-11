@@ -40,17 +40,17 @@
           <p class="card-text">{{object.description}}</p>
           <p>Genres:
             {% for genre in book.genres.all %}
-            {% if genre.name == "FICTION" %}
+            {% if genre.name == "Fiction" %}
             <span class="badge badge-pill badge-primary" style="font-weight: bold; text-transform: uppercase;">{{ genre.name }}</span>
-            {% elif genre.name == "THRILLER" %}
+            {% elif genre.name == "Thriller" %}
             <span class="badge badge-pill badge-warning" style="font-weight: bold; text-transform: uppercase; color: white;">{{ genre.name }}</span>
-            {% elif genre.name == "MYSTERY" %}
+            {% elif genre.name == "Mystery" %}
             <span class="badge badge-pill badge-secondary" style="font-weight: bold; text-transform: uppercase; color: white;">{{ genre.name }}</span>
-            {% elif genre.name == "DRAMA" %}
+            {% elif genre.name == "Drama" %}
             <span class="badge badge-pill badge-success" style="font-weight: bold; text-transform: uppercase; color: white;">{{ genre.name }}</span>
-            {% elif genre.name == "ACTION" %}
+            {% elif genre.name == "Action" %}
             <span class="badge badge-pill badge-danger" style="font-weight: bold; text-transform: uppercase; color: white;">{{ genre.name }}</span>
-            {% elif genre.name == "ROMANCE" %}
+            {% elif genre.name == "Romance" %}
             <span class="badge badge-pill badge-info" style="font-weight: bold; text-transform: uppercase; color: white;">{{ genre.name }}</span>
             {% else %}
             <span class="badge badge-pill badge-dark" style="font-weight: bold; text-transform: uppercase; color: white;">{{ genre.name }}</span>
@@ -61,9 +61,9 @@
             </p>
 
             {% if object.quantity > 0 %}
-            <a href="{% url 'add_to_cart' book_id=book.id %}" class="btn btn-outline-primary" role="button" onclick="alert('Item added to cart')">Add to cart</a>
-            
-            <a href="{% url 'order' book_id=book.id %}" class="btn btn-outline-success" role="button">Buy now</a>
+            <a href="{% url 'add_to_cart' book_id=book.id %}" class="btn btn-outline-primary" role="button" onclick="alert('Item added to wishlist')">Add to whishlist</a>
+
+            <a href="{% url 'order' book_id=book.id %}" class="btn btn-outline-success" role="button">Order now</a>
             {% else %}
             <h4 class="text-danger">Out of Stock..!!</h4>
             {% endif %}

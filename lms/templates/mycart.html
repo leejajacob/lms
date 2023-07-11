@@ -6,33 +6,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cart</title>
+    <title>Wishlist</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<style>
-    body{
-    align-items: center;
+    <style>
 
+.card-img {
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.card-img:hover {
+    transform: scale(1.1);
 }
 
-.card img{
-    padding-top: 15px;
-    padding-left: 5px;
-    margin-left: 5px;
-}
-</style>
+
+    </style>
 </head>
 <body>
-<div class="container-fluid">
-    {% if cart_items %}
-    <h2>My cart <img
+<h2 style="text-align: center; padding-top: 10px;">My Wishlist <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQSIsZKbGWXOjKoTotnr7HbVyuqjogVzR9Rw&usqp=CAU"
             height=40px; width=40px;></h2>
+<div class="container-fluid">
+    {% if cart_items %}
+
 </div>
 <ul class="lit-group">
     {% for cart_item in cart_items %}
-    <div class="card border-dark mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
+    <div class="card border-dark mb-4" style="max-width: 540px; ">
+        <div class="row no-gutters" style="margin:10px;">
             <div class="col-md-4">
                 <img src="{{ cart_item.book.image_url }}" class="card-img" alt="{{ cart_item.book.title }}">
             </div>
@@ -41,8 +43,10 @@
                     <h5 class="card-title">{{ cart_item.book.title }}</h5>
                     <p>Description: {{ cart_item.book.description }} </p>
 
-                    <a class="btn btn-outline-primary" href="{% url 'order' book_id=cart_item.book.id %}">Buy</a></p>
-                    <a class="btn btn-outline-danger" href="{% url 'remove_from_cart' book_id=cart_item.book.id %}" onclick="alert('Item removed from cart')">Remove from cart</a>
+                    <a class="btn btn-outline-primary" href="{% url 'order' book_id=cart_item.book.id %}">Order
+                        now</a></p>
+                    <a class="btn btn-outline-danger" href="{% url 'remove_from_cart' book_id=cart_item.book.id %}"
+                       onclick="alert('Item removed from wishlist')">Remove from wishlist</a>
 
                 </div>
             </div>
@@ -51,15 +55,21 @@
 
 
     {% endfor %}
-    <!--    <p>Total: {{ cart_items.0.cart.total_price }}-->
-    <!--    <a class="btn btn-outline-primary" href="" onclick="alert('Payment Successfull')">Buy</a></p>-->
-    {% else %}
-    <p>Your Cart is empty</p>
-    <a href="{% url 'list' %}">Continue Shopping</a>
 
+    {% else %}
+
+    <div style="display: flex; justify-content: center; align-items: center; text-align: center;">
+        <div>
+            <p style="font-size: 18px; color: #555; margin-top:25px;">Your Wishlist is empty!!</p>
+
+
+        <button style="padding: 10px 20px; font-size: 16px; background-color: #337ab7; color: #fff; border: none; border-radius: 4px; margin-top: 20px; cursor: pointer;">
+            <a href="{% url 'list' %}" style="text-decoration: none; color: #fff;">Continue Shopping</a>
+        </button>
+            </div>
+    </div>
 </ul>
 {% endif %}
-
 
 
 </body>

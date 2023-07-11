@@ -7,10 +7,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Product List</title>
-    <link rel="stylesheet" href="{% static 'style_list.css' %}">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<style>
+    .card {
+    margin: 30px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 10px rgba(0,0,0,0.4);
+    z-index: 1;
+    position: relative;
+}
+.card img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+.card-title {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px;
+}
+.card-text {
+    font-size: 13px;
+    color: #888;
+    margin-top: 8px;
+    padding: 5px;
+}
 
+.text-primary {
+    font-size: 14px;
+    margin-top: 8px;
+    padding: 5px;
+}
+.text-danger {
+    font-size: 14px;
+    margin-top: 8px;
+    padding: 5px;
+}
+
+.card-link {
+    padding: 3px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+.card-link:hover {
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: None;
+}
+</style>
 </head>
 <body>
 <h1>Product List</h1>
@@ -22,7 +79,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{books.title}}</h5>
                 <p class="card-text">Rs/-{{books.price}}</p>
-                    
+
                     <a href="{% url 'details' books.id %}">View</a>
 
                 {% if books.quantity > 0  %}
@@ -30,12 +87,12 @@
                 {% else %}
                 <li class="text-danger">Out of Stock..!</li>
                 {% endif %}
-                
+
             </div>
         </div>
     </div>
     {% endfor %}
-    
+
 </div>
 </body>
 </html>

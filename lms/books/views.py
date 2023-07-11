@@ -108,6 +108,11 @@ def out_of_stock(request):
 @login_required
 def order_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
+    user = request.user
+
+    # Check if the user has already ordered the book and not returned it
+    if Order.objects.filter(user=user, product=book, returned=False).exists():
+        return render(request, 'already_ordered.html')
     if book.quantity > 0:
         user = request.user
         order_date = date.today()

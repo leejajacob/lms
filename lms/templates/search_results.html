@@ -7,18 +7,46 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Search Book</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <style>
+
+.book-img {
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.book-img:hover {
+    transform: scale(1.1);
+}
+
+  </style>
 </head>
 
 <body>
-    <h3 class="text-secondary">Search Results</h3>
+    <h3 class="text-secondary" style="text-align: center; padding-top: 10px;">Search Results</h3>
     {% for every in object_list %}
-    <div>
-        <h3><a href="{% url 'details' every.pk %}">{{ every.title }}</a></h3>
-        <p>Author: {{ every.author }}</p>
+    <div class="container-fluid">
+    <div class="row no-gutters" style="padding-top: 40px;">
+      <div class="col-md-3 mb-3" style="padding-left: 80px;"><img src="{{ every.image_url}}" class="card-img-top book-img" alt=".."
+          style="width: 200px;"></div>
+
+      <div class="col-md-8">
+        <div class="card-body">
+          <h4 class="card-title">{{every.title}}</h4>
+          <p class="card-text" style="color: blue;">Author: {{every.author}}</p>
+          <p class="card-text">{{every.description}}</p>
+
+            <a href="{% url 'details' every.pk %}" class="btn btn-outline-success" role="button">Go to details</a>
+
+
+        </div>
+      </div>
     </div>
+  </div>
     {% empty %}
-    <h5 class="text-danger">Nothing found :(</h5>
+    <h5 class="text-danger" style="text-align: center;">Nothing found :(</h5>
     {% endfor %}
 </body>
 
